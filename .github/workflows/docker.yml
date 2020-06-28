@@ -7,7 +7,6 @@ on:
 jobs:
   buildx:
     name: docker-build-push
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
