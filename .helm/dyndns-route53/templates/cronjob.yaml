@@ -19,7 +19,7 @@ spec:
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               args:
-                - /bin/sh
+                - /app/dyndns-route53 -ipv4 -route53.hostedzone={{ .Values.route53.hostedZone }} -route53.A.name={{ .Values.route53.name }}
               resources:
                 {{- toYaml .Values.resources | nindent 16 }}
           restartPolicy: OnFailure

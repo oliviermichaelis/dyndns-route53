@@ -8,6 +8,10 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v0.0.5"
 
+route53:
+  name:
+  hostedZone: ZEOHDNO3HLRKY
+
 podSecurityContext: {}
   # fsGroup: 2000
 
