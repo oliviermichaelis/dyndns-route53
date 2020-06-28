@@ -18,8 +18,28 @@ spec:
               {{- end}}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
+              command:
+                - /app/dyndns-route53
               args:
-                - /app/dyndns-route53 -ipv4 -route53.hostedzone={{ .Values.route53.hostedZone }} -route53.A.name={{ .Values.route53.name }}
+                - "-ipv4"
+                - "-route53.hostedzone={{ .Values.route53.hostedZone }}"
+                - "-route53.A.name={{ .Values.route53.name }}"
+                - "-aws.accessKeyID=/secrets/aws_access_key_id"
+                - "-aws.secretAccessKey=/secrets/aws_secret_access_key"
               resources:
                 {{- toYaml .Values.resources | nindent 16 }}
+              volumeMounts:
+                - name: dyndns-route53
+                  mountPath: /secrets/
+          volumes:
+            - name: dyndns-route53
+              secret:
+                secretName: dyndns-route53
+                items:
+                  - key: AWS_REGION
+                    path: aws_region
+                  - key: AWS_ACCESS_KEY_ID
+                    path: aws_access_key_id
+                  - key: AWS_SECRET_ACCESS_KEY
+                    path: aws_secret_access_key
           restartPolicy: OnFailure
