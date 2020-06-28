@@ -67,7 +67,7 @@ func main() {
 	flagIPv6Enabled := flag.Bool("ipv6", false, "Enable IPv6 lookup")
 	flagDebug := flag.Bool("debug", false, "Enable debug mode")
 	flagAccessKeyID := flag.String("aws.accessKeyID", "", "AWS Access Key ID")
-	flagSecretAccessKey := flag.String("aws.SecretAccessKey", "", "AWS Secret Access Key")
+	flagSecretAccessKey := flag.String("aws.secretAccessKey", "", "AWS Secret Access Key")
 	flagRoute53HostedZoneName := flag.String("route53.hostedzone", "", "Name of HostedZone")
 	flagRoute53AName := flag.String("route53.A.name", "", "Name of A record")
 	flagRoute53AAAAName := flag.String("route53.AAAA.name", "", "Name of AAAA record")
