@@ -11,7 +11,7 @@ spec:
       template:
         spec:
           containers:
-            - name: hello
+            - name: {{ include "dyndns-route53.fullname" . }}
               {{- if .Values.securityContext }}
               securityContext:
                 {{- toYaml .Values.securityContext | nindent 12 }}
