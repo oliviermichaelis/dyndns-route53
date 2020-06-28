@@ -1,0 +1,28 @@
+name: Docker
+
+on:
+  release:
+    type: [published]
+
+jobs:
+  buildx:
+    name: docker-build-push
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v3
+        with:
+          buildx-version: latest
+          qemu-version: latest
+      - name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+      - name: Run Buildx
+        run: |
+          docker buildx build \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 \
+            --output "type=image,push=true" \
+            --file Dockerfile .
