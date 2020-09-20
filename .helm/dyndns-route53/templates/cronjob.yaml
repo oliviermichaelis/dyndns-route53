@@ -6,6 +6,7 @@ metadata:
     {{- include "dyndns-route53.labels" . | nindent 4 }}
 spec:
   schedule: "*/10 * * * *"
+  startingDeadlineSeconds: 30
   jobTemplate:
     spec:
       template:
@@ -42,4 +43,4 @@ spec:
                     path: aws_access_key_id
                   - key: AWS_SECRET_ACCESS_KEY
                     path: aws_secret_access_key
-          restartPolicy: OnFailure
+          restartPolicy: Never
